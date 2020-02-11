@@ -7,11 +7,17 @@ int base64toascii(const char *input, char *output);
 int asciitobase64(const char *input, char *output);
 char ignore(char c);
 
+// Options
 #define __FILEMODE__	if(ops&0x01)
 #define __DECODE__		if(ops&0x02)
 #define __VERBOSE__		if(ops&0x04)
 #define __BUGS__		if(ops&0x08)
 #define __IGNORE__		if(ops&0x10)
+
+// Error codes
+#define ERR_OPEN_FILE			1
+#define ERR_NO_MEMORY_INPUT		2
+#define ERR_NO_MEMORY_OUTPUT	3
 
 unsigned char ops = 0;
 char *ignorelist;
@@ -26,34 +32,16 @@ unsigned char ignorelen;
  */
 
 char parseMacros(const char *input, unsigned char *i);
-unsigned char quicksort(char *list, unsigned char len) {
-	if (len <= 1) {
-		return 0;
-	}
-	register unsigned char pivot = 0, end = len - 1;
-	while(pivot != end) {
-		if (*(list + pivot) >= *(list + pivot+1)) {
-			register unsigned char tmp = *(list + pivot);
-			*(list + pivot) = *(list + pivot+1);
-			*(list + pivot+1) = tmp;
-			pivot += 1;
-		} else {
-			register unsigned char tmp = *(list + pivot+1);
-			*(list + pivot+1) = *(list + end);
-			*(list + end) = tmp;
-			end -= 1;
-		}
-	}
-	return quicksort(list, pivot) || quicksort(list + pivot+1, len - pivot-1);
-}
+unsigned char quicksort(char *list, unsigned char len);
+void help(const char *name);
 
 int main(const int argc, const char **argv) {
 
 	int i = 1;
 
 	if (argc < 2) {
-		printf("No arguments!\n");
-		return 1;
+		help(argv[0]);
+		return 0;
 	} else { // Parse arguments
 		unsigned char flag = 0;
 		for (; i < argc; i++) {
@@ -114,7 +102,7 @@ int main(const int argc, const char **argv) {
 		FILE *file = fopen(argv[i], "r");
 		if (!file) {
 			printf("Could not open file: %s.\n", argv[i]);
-			return 2;
+			return ERR_OPEN_FILE;
 		}
 
 		fseek(file, 0, SEEK_END);
@@ -124,7 +112,7 @@ int main(const int argc, const char **argv) {
 		input = malloc(sizeof(char)*len+1);
 		if (!input) {
 			printf("Err: Could not allocate memory for input\n");
-			return 3;
+			return ERR_NO_MEMORY_INPUT;
 		}
 
 		unsigned int j = 0;
@@ -151,7 +139,7 @@ int main(const int argc, const char **argv) {
 		input = malloc(sizeof(char)*len+1);
 		if (!input) {
 			printf("Err: Could not allocate memory for input\n");
-			return 3;
+			return ERR_NO_MEMORY_INPUT;
 		}
 
 		// Copia para o input
@@ -163,7 +151,7 @@ int main(const int argc, const char **argv) {
 		output = malloc(sizeof(char)*len*3/4+1);
 		if (!output) {
 			printf("Err: Could not allocate memory for output\n");
-			return 4;
+			return ERR_NO_MEMORY_OUTPUT;
 		}
 
 		base64toascii(input, output);
@@ -174,7 +162,7 @@ int main(const int argc, const char **argv) {
 		output = malloc(sizeof(char)*len*4/3+4);
 		if (!output) {
 			printf("Err: Could not allocate memory for output\n");
-			return 4;
+			return ERR_NO_MEMORY_OUTPUT;
 		}
 
 		asciitobase64(input, output);
@@ -389,4 +377,44 @@ char parseMacros(const char *input, unsigned char *i) {
 			return '\\';
 	}
 	return 0;
+}
+
+unsigned char quicksort(char *list, unsigned char len) {
+	if (len <= 1) {
+		return 0;
+	}
+	register unsigned char pivot = 0, end = len - 1;
+	while(pivot != end) {
+		if (*(list + pivot) >= *(list + pivot+1)) {
+			register unsigned char tmp = *(list + pivot);
+			*(list + pivot) = *(list + pivot+1);
+			*(list + pivot+1) = tmp;
+			pivot += 1;
+		} else {
+			register unsigned char tmp = *(list + pivot+1);
+			*(list + pivot+1) = *(list + end);
+			*(list + end) = tmp;
+			end -= 1;
+		}
+	}
+	return quicksort(list, pivot) || quicksort(list + pivot+1, len - pivot-1);
+}
+
+void help(const char *name) {
+	printf("usage: %s [-<options>] [argument] <input>\n", name);
+	printf("\n\tOptions:\n\n");
+	printf("\t-f\tFile mode\n");
+	printf("\t\t\t\tReads input from a file. <input> is now <filemane>\n\n");
+	printf("\t-e\tEncoding\n");
+	printf("\t\t\t\tEncodes from ascii to base64. (default)\n\n");
+	printf("\t-d\tDecoding\n");
+	printf("\t\t\t\tDecodes from base64 to ascii.\n\n");
+	printf("\t-v\tVerbose\n");
+	printf("\t\t\t\tSays that the program is doing.\n\n");
+	printf("\t-b\tBug finding\n");
+	printf("\t\t\t\tHelps finding bugs from (en/de)crypts loops.\n\n");
+	printf("\t-i\tIgnore\n");
+	printf("\t\t\t\tIgnores characters from next argument.\n\n");
+
+	putchar(10);
 }
