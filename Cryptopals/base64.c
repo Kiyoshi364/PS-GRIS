@@ -5,6 +5,9 @@
 
 int base64toascii(const char *input, char *output);
 int asciitobase64(const char *input, char *output);
+
+char hextoascii(char fst, char sec);
+void asciitohex(char c, char *fst, char *sec);
 char ignore(char c);
 
 // Options
@@ -13,6 +16,8 @@ char ignore(char c);
 #define __VERBOSE__		if(ops&0x04)
 #define __BUGS__		if(ops&0x08)
 #define __IGNORE__		if(ops&0x10)
+#define __HEXIN__		if(ops&0x20)
+#define __HEXOUT__		if(ops&0x40)
 
 // Error codes
 #define ERR_OPEN_FILE			1
@@ -29,6 +34,8 @@ unsigned char ignorelen;
  * -v		verbose
  * -b		bugs				Helps finding bugs from (en/de)crypts loops
  * -i		ignore				Ignores characters from next argument
+ * -h		hex input			Consider the input as hex
+ * -H		hex output			Prints the output in hex
  */
 
 char parseMacros(const char *input, unsigned char *i);
@@ -61,7 +68,7 @@ int main(const int argc, const char **argv) {
 						j = now - 1;
 					} else
 						ignorelist[index++] = argv[i][j];
-					__BUGS__ printf("%d 0x%02x: 0x%02x %c\n", index-1, index-1, ignorelist[index-1], ignorelist[index-1]);
+					__BUGS__ printf("%d 0x%02x: 0x%02x '%c'\n", index-1, index-1, ignorelist[index-1], ignorelist[index-1]);
 				}
 
 				__BUGS__ printf("Starting quicksort...\n");
@@ -84,6 +91,10 @@ int main(const int argc, const char **argv) {
 					case 'i':
 						flag = ops&0x10? flag : flag|0x01;
 						ops |= 0x10; break;
+					case 'h':
+						ops |= 0x20; break;
+					case 'H':
+						ops |= 0x40; break;
 					default:
 						printf("Invalid code: %c 0x%02x\n", *(argv[i]+j), *(argv[i]+j));
 				}
@@ -105,9 +116,14 @@ int main(const int argc, const char **argv) {
 			return ERR_OPEN_FILE;
 		}
 
+		// ToDo upgrade/optimize if IGNORE is on
 		fseek(file, 0, SEEK_END);
 		len = ftell(file);
 		fseek(file, 0, SEEK_SET);
+
+		__HEXIN__ {
+			len >>= 1;
+		}
 
 		input = malloc(sizeof(char)*len+1);
 		if (!input) {
@@ -115,16 +131,44 @@ int main(const int argc, const char **argv) {
 			return ERR_NO_MEMORY_INPUT;
 		}
 
-		unsigned int j = 0;
-		int c;
-		while ((c = fgetc(file)) != EOF) {
-			__IGNORE__ {
-				while (ignore(c)) {
+		// Copia para o input
+		__HEXIN__ {
+			char flag = 1;
+			for (register int j = 0, c; j < len; j++) {
+				char in[2];
+				c = fgetc(file);
+				__IGNORE__ while (c != EOF && ignore(c)) {
+					len = flag ? len-1 : len;
+					flag ^= 1;
 					c = fgetc(file);
-					len--;
+					__BUGS__ printf("in[0]: len=%d\n", len);
 				}
+				in[0] = c;
+				__IGNORE__ while (c != EOF && ignore(c)) {
+					len = flag ? len-1 : len;
+					flag ^= 1;
+					c = fgetc(file);
+					__BUGS__ printf("in[1]: len=%d\n", len);
+				}
+				c = fgetc(file);
+				in[1] = c;
+				if (j >= len) break;
+				input[j] = hextoascii(in[0], in[1]);
+				__BUGS__ printf("in: %s - %x '%c'\n", in, input[j], input[j]);
+				printf("in: %s - %x '%c'\n", in, input[j], input[j]);
 			}
-			input[j++] = c;
+		} else {
+			unsigned int j = 0;
+			int c;
+			while ((c = fgetc(file)) != EOF) {
+				__IGNORE__ {
+					while (ignore(c)) {
+						c = fgetc(file);
+						len--;
+					}
+				}
+				input[j++] = c;
+			}
 		}
 
 		fclose(file);
@@ -136,6 +180,10 @@ int main(const int argc, const char **argv) {
 					len++;
 			}
 		} else while (*(argv[i]+len)) len++;
+		__HEXIN__ {
+			len >>= 1;
+		}
+
 		input = malloc(sizeof(char)*len+1);
 		if (!input) {
 			printf("Err: Could not allocate memory for input\n");
@@ -143,8 +191,15 @@ int main(const int argc, const char **argv) {
 		}
 
 		// Copia para o input
-		for (register int j = 0; argv[i][j]; j++)
-			input[j] = argv[i][j];
+		for (register int j = 0; argv[i][j]; j++) {
+			__HEXIN__ input[j] = hextoascii(argv[i][j*2], argv[i][j*2+1]);
+			else input[j] = argv[i][j];
+
+			__HEXIN__ {
+				if (argv[i][j*2] && argv[i][j*2+1]);
+				else break;
+			}
+		}
 	}
 
 	__DECODE__ {
@@ -155,8 +210,35 @@ int main(const int argc, const char **argv) {
 		}
 
 		base64toascii(input, output);
-		__VERBOSE__ printf("\nmain decode:\n%s\n\n%s\n", input, output);
-		else printf("%s", output);
+
+		__HEXOUT__ {
+			__VERBOSE__ {
+				printf("\nmain decode:\n");
+				__HEXIN__ {
+					for (register size_t i = 0; input[i]; i++) {
+						char fst, sec;
+						asciitohex(input[i], &fst, &sec);
+						putchar(fst);
+						putchar(sec);
+					}
+					putchar(10);
+					putchar(10);
+				} else {
+					printf("%s\n\n", input);
+				}
+			}
+
+			for (register size_t i = 0; output[i]; i++) {
+				char fst, sec;
+				asciitohex(output[i], &fst, &sec);
+				putchar(fst);
+				putchar(sec);
+			}
+			__VERBOSE__ putchar(10);
+		} else {
+			__VERBOSE__ printf("\nmain decode:\n%s\n\n%s\n", input, output);
+			else printf("%s", output);
+		}
 
 	} else {
 		output = malloc(sizeof(char)*len*4/3+4);
@@ -166,13 +248,41 @@ int main(const int argc, const char **argv) {
 		}
 
 		asciitobase64(input, output);
-		__VERBOSE__ printf("\nmain encode:\n%s\n\n%s\n", input, output);
-		else printf("%s", output);
+
+		__HEXOUT__ {
+			__VERBOSE__ {
+				printf("\nmain decode:\n");
+				__HEXIN__ {
+					for (register size_t i = 0; input[i]; i++) {
+						char fst, sec;
+						asciitohex(input[i], &fst, &sec);
+						putchar(fst);
+						putchar(sec);
+					}
+					putchar(10);
+					putchar(10);
+				} else {
+					printf("%s\n\n", input);
+				}
+			}
+
+			for (register size_t i = 0; output[i]; i++) {
+				char fst, sec;
+				asciitohex(output[i], &fst, &sec);
+				putchar(fst);
+				putchar(sec);
+			}
+			__VERBOSE__ putchar(10);
+		} else {
+			__VERBOSE__ printf("\nmain encode:\n%s\n\n%s\n", input, output);
+			else printf("%s", output);
+		}
 	}
 
 	return 0;
 }
 
+// Returns 1 if should be ignored
 // ToDo change algorithm to binary search
 char ignore(char c) {
 	register unsigned char start = 0, end = ignorelen - 1, now = end / 2;
@@ -251,13 +361,13 @@ int asciitobase64(const char *input, char *output) {
 	return 0;
 }
 
-unsigned char tohex(char input) {
+unsigned char to64index(char input) {
 	register char i = 0;
 	for (; i < 64; i++) {
 		if ((input == _DICTIONARY_[i])) break;
 	}
 	// Debuging
-	__BUGS__ printf("tohex: %c -> %hhd\n", input, i);
+	__BUGS__ printf("to64index: %c -> %hhd\n", input, i);
 	return i;
 	/* Alternative
 	if (!(input&0xD0)) { // + and /
@@ -291,7 +401,7 @@ int base64toascii(const char *input, char *output) {
 		__IGNORE__ {
 			while(ignore(now)) now = *(input + t++);
 		}
-		now = tohex(now);
+		now = to64index(now);
 
 		// Se esta no estado 1, 2 ou 3
 		if (flag) {
@@ -309,6 +419,42 @@ int base64toascii(const char *input, char *output) {
 
 	*(output + i++) = '\0';
 	return 0;
+}
+
+void asciitohex(char c, char *fst, char *sec) {
+	if (((c&0x0F) >= 0x00) && ((c&0x0F) <= 0x09)) {
+		*sec = 0x30 + (c&0x0F);
+	} else if ((c&0x0F) >= 0x0A && (c&0x0F) <= 0x0F) {
+		*sec = 'A' + (c&0x0F) - 0x0A;
+	} else printf("asciitohex: err %02X: sec out of bounds\n", c);
+	c >>= 4;
+	if ((c&0x0F) >= 0x00 && (c&0x0F) <= 0x09) {
+		*fst = 0x30 + (c&0x0F);
+	} else if ((c&0x0F) >= 0x0A && (c&0x0F) <= 0x0F) {
+		*fst = 'A' + (c&0x0F) - 0x0A;
+	} else printf("asciitohex: err %X0: fst out of bounds\n", c);
+}
+
+char hextoascii(char fst, char sec) {
+	if (fst >= '0' && fst <= '9') fst -= '0';
+	else {
+		if (fst >= 'a' && fst <= 'f') fst += 'A' - 'a';
+		if (fst >= 'A' && fst <= 'F') fst += 0x0A - 'A';
+		else fst = 0;
+	}
+
+	if (sec >= '0' && sec <= '9') sec -= '0';
+	else {
+		if (sec >= 'a' && sec <= 'f') sec += 'A' - 'a';
+		if (sec >= 'A' && sec <= 'F') sec += 0x0A - 'A';
+		else sec = 0;
+	}
+
+	fst <<= 4;
+	if (fst&0x0F) printf("Err: hextoascii fst=%X\n", fst);
+	if (sec&0xF0) printf("Err: hextoascii sec=%X\n", sec);
+
+	return fst | sec;
 }
 
 char parseMacros(const char *input, unsigned char *i) {
