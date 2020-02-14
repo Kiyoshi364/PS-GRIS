@@ -1,0 +1,12 @@
+TAG
+Faça um relatório explicando um ataque de engenharia social.
+Explique nele como você faria para conseguir uma informação
+explorando as falhas humanas (foque em fugir de algo técnico aqui) e
+depois mostre como você usaria ferramentas para aprimorar este
+ataque.
+
+Enviar para: franklinmartins@dcc.ufrj.br
+
+Formato: .pdf
+
+Data de entrega: 16/02/20

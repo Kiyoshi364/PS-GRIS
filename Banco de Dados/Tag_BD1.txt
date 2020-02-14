@@ -1,0 +1,33 @@
+TAG BD 1
+Responsável: Arthur Castro
+Contatos: @artoscastro (Telegram) 
+	    arthurcastro@dcc.ufrj.br
+
+
+O pedido é o seguinte, elaborar um banco de dados do processo seletivo que
+estão participando colocando as entidades e atributos que acharem razoáveis,
+criando em seguinda um script sql de criação de um BD com essas tabelas. É
+NECESSARIO JUSTIFICAR NECESSIDADE DE CADA ATRIBUTO E CADA ENTIDADE, que será
+colocado em um arquivo de texto a ser enviado junto com o script. 
+
+Qualquer problema relacionado a elaboração do BD ou da escrita do script sql
+pode ser enviada a mim e ajudarei sem qualquer problema, lembre-se claro, que
+ajudar não é resolver por. Estou a disposição principalmente após as 19:00,
+mas tentarei responder sempre o mais rápido possível. 
+
+Segue documentação do MYSQL: https://dev.mysql.com/doc/refman/8.0/en/
+
+Expecificações:
+- O Banco deve ter pelo menos 3 entidades
+- Cada table deve ter uma Primary Key
+- Deve Existir pelo menos uma tabela que contenha o CONSTRAINT FOREIGN KEY
+
+Diferenciais (Não Obrigatório): 
+- Entregar diagram Entidade Relação (ler sobre aqui:
+  https://www.devmedia.com.br/modelo-entidade-relacionamento-mer-e-diagrama-entidade-relacionamento-der/14332)
+
+
+Outras Referencias: 
+https://www.devmedia.com.br/primeiros-passos-no-mysql/28438
+https://www.devmedia.com.br/criando-uma-chave-estrangeira-no-mysql/20299
+https://www.devmedia.com.br/sql-aprenda-a-utilizar-a-chave-primaria-e-a-chave-estrangeira/37636
