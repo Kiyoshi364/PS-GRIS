@@ -1,0 +1,8 @@
+Realizar os desafios da trilha de stack e format do exploit exercises.
+https://exploit-exercises.lains.space/protostar/stack0/
+
+Essa tag começará em aula e terminará para casa.
+Fazer até a stack5 e até format 3.
+
+Slides:
+https://docs.google.com/presentation/d/1-cailTlloFPfnS9hK9btmYQ66WY4-Uo8iybMXrXUrL0/edit#slide=id.g56272fb9be_0_240

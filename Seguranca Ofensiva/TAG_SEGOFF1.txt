@@ -1,0 +1,30 @@
+Escolham um ataque (vale também DOS)ou um malware ou exploit. Vocês devem
+estudar o que foi escolhido. Se for um malware comum, vocês devem escrever o
+seu próprio, quem não sabe programar, não fiquem intimidados, é um ótimo jeito
+de aprender.
+
+Se for um ataque na rede, tentem sniffar a rede enquanto o ataque acontece
+(usando o wireshark, ou outro) e explicar como que o ataque funciona.
+Se o malware for muito complicado, veja se vale a pena implementar apenas uma
+parte dele (Ex: fazer apenas uma função para encriptar apenas um arquivo, no
+caso de um ransomware). Ao fim do seu estudo, preparar um relatório falando
+sobre o malware/ataque e contextualizando um pouco.  
+
+ENTREGA : 29/02/2020
+
+Dicas:
+Me avisem sobre seus temas (@esoj)
+Exemplo de possível relatório sobre ransomware: 
+buffer overflow: https://www.youtube.com/watch?v=1S0aBV-Waeo&t=908s
+dirtyCOW https://www.youtube.com/watch?v=kEsshExn7aE&t=587s
+slowLoris https://www.youtube.com/watch?v=XiFkyR35v2Y
+Exemplo de virus q sobre escreve a MBR:
+https://www.youtube.com/watch?v=f8LNz6gE_20
+Uma das minhas DEFCONs favoritas:
+https://www.youtube.com/watch?v=Jwpg-AwJ0Jc&t=1037s
+outra DEFCON https://www.youtube.com/watch?v=7G1LjQSYM5Q
+Seria isto um tutorial do black hat python em vídeo ?
+https://www.youtube.com/watch?v=om9HDD6BFRA&list=PLTgRMOcmRb3N5i5gBSjAqJ4c7m1CQDS0X
+
+Slides:
+https://docs.google.com/presentation/d/1-cailTlloFPfnS9hK9btmYQ66WY4-Uo8iybMXrXUrL0/edit#slide=id.g56272fb9be_0_240
