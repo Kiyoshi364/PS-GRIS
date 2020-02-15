@@ -1,0 +1,5 @@
+Tag: Cryptopals
+
+▪ Fazer 3 desafios do site cryptopals.com (recomendo os três iniciais) e entregar um relatório explicando as questões selecionadas e suas respostas
+▪ Pode ser feito em qualquer linguagem
+▪ Entrega: 29/02/20
