@@ -49,7 +49,9 @@ facilidade consegue extrair informações sobre o banco de dados.
 
 c) São ataques onde não se vê o resultado da Query SQL.
 
-d)
+d) Usando site: testphp.vulnweb.com
+Imagens: "sql injection.png" e "sql injection2.png"
+senha usada: "*/ OR 1 = 1 -- "
 
 11) a) Cross-Site Scripting, quando injeta-se um código e o client roda esse
 código.
@@ -59,9 +61,11 @@ o script é injetado, seja numa barra de busca, ou outra coisa.
 Persistente: Ocorre quando é o script injetado vira algo permanente no site,
 como uma resposta em um forúm ou descrição num site de bate papo.
 
-c)
-
-d)
+c) d) Para ambos foram usados o site: http://xss-game.appspot.com
+XSS Stored está exemplificado na imagem: "xss injection stored" feito apartir
+do lvl 2.
+XSS DOM-XSS está exemplificado na imagem: "xss injection dom" feito apartir do
+lvl 1.
 
 12) a) Local File Inclusion: processo onde inclui-se arquivos já existentes no
 servidor, geralmente acontece com servidores PHP.
@@ -99,9 +103,6 @@ Review:
 
 ToDo:
 - 9b
-- 10d
-- 11c
-- 11d
 - 12e
 - 13b
 - 13d
