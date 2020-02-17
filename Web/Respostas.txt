@@ -97,10 +97,6 @@ e) Para clientes:
    Para servidor:
 	- Reduzir o tempo de vida dos Cookies
 
-Review:
-- 3.2
-- 13e
-
 ToDo:
 - 9b
 - 12e
