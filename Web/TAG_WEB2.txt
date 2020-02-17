@@ -1,0 +1,10 @@
+TAG WEB II - Desafio CTF WEB
+  Agora que vcs ja sabem as principais vulnerabilidades web e como aplicacoes
+web funcionam. Voces terao que desenvolver um desafio Web ( desafio de CTF )
+que explorem o funcionamento/uma vulnerabilidade aprendida no treinamento.
+
+- Modo de entrega: Repositorio privado no github ( compartilhem comigo dps ) 
+- Data de entrega: 02/03
+- Vou escolher os melhores, e se me permitirem vou utilizar como desafio da
+  semana da computacao ( por isso repositorio privado, nao pode haver
+divulgacao do desafio desenvolvido. )
