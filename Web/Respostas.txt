@@ -1,0 +1,107 @@
+1) É uma sigla para HiperText Transfer Protocol, um protocolo para
+trasferência de arquivos, principalmente entre servidor e client,
+frequentemente usado na internet. Após ser aberta uma comunicação com o
+servidor, o client faz uma requisição de um arquivo, o servidor, caso
+encontre, manda o arquivo junto com um Response Code e encerra a conexão. Caso
+contrário, envia um erro (que também é um tipo de Response Code). Então, o
+navegador procura por possíveis outros arquivos que são requisitos, e repete o
+processo para os arquivos requisitos (de uma forma recursiva).
+
+2) É o código de Status da Requisição, se deu certo, ocorreu algum erro, entre
+outros. Pode-se criar um programa que avalia o Código de Resposta e reporta se
+deu certo ou não, e apartir disso construir um Crawler.
+
+3) É o cabeçalho, onde fica informações adicionais sobre a requisição/resposta
+que pode ser ou não necessárias para a comunicação. O header pode ter
+informações sobre o servidor.
+
+4) São maneiras de enviar informações e comandos para um servidor. POST envia
+informações, como submisão de um formulário, pela requisição, enquanto o GET
+realiza a mesma tarefa, porém pela URL. Dessa forma, além de ser mais seguro
+(as informações não ficam salvas junto com as urls no histórico no navegador),
+o POST também permite enviar mais dados.
+
+5) O Cache é um armazenamento que guarda sites recentemente visitados. Quando
+o servidor retorna um arquivo, geralmente ele manda a data de expiração do
+pultimo cache, assim podendo evitar uma transferência de dados desnecessária.
+Cache-control, Pragma, Expires, Validators.
+
+6) Cookie é um resgistro de sessão, serve para o servidor "se lembrar" do
+client em acessos recentes. Cookie Stealing.
+
+7) OWASP-Top-Ten é um documento que fala sobre os maiores riscos de segurança
+para apliações web.
+
+8) Recon (reconhecimento, em inglês) refere-se a prática de prática de fazer o
+reconhecimento do Sistema a ser atacado, seja quais softwares estão sendo
+usados, suas versões, outros diretórios e arquivos, entre outros.
+
+9) a) Quando por meio de manipulação de entrada um comando é injetado (rm -fr
+/).
+
+b)
+
+10) a) Quando por meio de manipulação de entrada um comando de SQL é injetado 
+(Login: '; /* Passowrd: */ OR 1 = 1 -- )
+
+b) São ataques a sistemas SQL baseados no comando UNION, e com certa
+facilidade consegue extrair informações sobre o banco de dados.
+
+c) São ataques onde não se vê o resultado da Query SQL.
+
+d)
+
+11) a) Cross-Site Scripting, quando injeta-se um código e o client roda esse
+código.
+
+b) Não persistente: Mais comum, é um script que roda apenas uma vez, ou quando
+o script é injetado, seja numa barra de busca, ou outra coisa.
+Persistente: Ocorre quando é o script injetado vira algo permanente no site,
+como uma resposta em um forúm ou descrição num site de bate papo.
+
+c)
+
+d)
+
+12) a) Local File Inclusion: processo onde inclui-se arquivos já existentes no
+servidor, geralmente acontece com servidores PHP.
+
+b) Remote File Inclusion: processo onde inclui-se arquivos que não existiam no
+servidor.
+
+c) Usar '../' para acessar pastas anteriores.
+
+d) Pode-se usar o '../' para que seja incluido o arquivo 'etc/passwd' do
+sistema.
+
+e)
+
+13) a) Cross-Site Request Forgery: o atacante se aproveita da confiança do
+servidor para enviar ou realizar algo malicioso.
+
+b) 
+
+c) Server-Site Request Forgery: o atacante faz o servidor abrir uma conexão
+para outro endereço, muitas vezes ganhando acesso privilegiado.
+
+d)
+
+e) Para clientes:
+	- Realizar logout
+	- Evitar "Lembre-se de mim"
+
+   Para servidor:
+	- Reduzir o tempo de vida dos Cookies
+
+Review:
+- 3.2
+- 13e
+
+ToDo:
+- 9b
+- 10d
+- 11c
+- 11d
+- 12e
+- 13b
+- 13d

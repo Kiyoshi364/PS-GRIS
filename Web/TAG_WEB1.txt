@@ -1,6 +1,6 @@
 Tag de Web-Hacking
 
-1)  O que é o protocolo HTTP e Como ele funciona?
+1) O que é o protocolo HTTP e Como ele funciona?
 
 2) O que é um Response Code? Cite um exemplo de um programa que você pode fazer com ele?
 
@@ -20,14 +20,14 @@ Tag de Web-Hacking
 	a) O que é Command Injection?
 	b) Mostre um exemplo de Command Injection ( PoC da exploração ) 
 
-10)  SQL INJECTION
+10) SQL INJECTION
 	a) O que é SQL injection?
 	b) O que é Union Based Attack?
 	c) O que é Blind-SQL-I?
 	d) Mostre um exemplo de um Blind
 	SQL-Injection ( PoC da exploração ) .
 
-11)  XSS
+11) XSS
 	a) O que é XSS?
 	b) Quais são os tipos de XSS? Explique-os.
 	c) Mostre um exemplo de um XSS Stored ( PoC da exploração ) .
