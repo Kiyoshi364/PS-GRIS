@@ -39,7 +39,10 @@ usados, suas versões, outros diretórios e arquivos, entre outros.
 9) a) Quando por meio de manipulação de entrada um comando é injetado (rm -fr
 /).
 
-b)
+b) ** FEITO JUNTO COM 13d **
+Foi feito em servidor privado dentro do LEP1
+Imagens: "ssrf cmd injection.png" e "ssrf cmd injection2.png"
+String usada no campo: "; curl 127.0.0.1:8081/secret.txt"
 
 10) a) Quando por meio de manipulação de entrada um comando de SQL é injetado 
 (Login: '; /* Passowrd: */ OR 1 = 1 -- )
@@ -88,7 +91,10 @@ b)
 c) Server-Site Request Forgery: o atacante faz o servidor abrir uma conexão
 para outro endereço, muitas vezes ganhando acesso privilegiado.
 
-d)
+d) ** FEITO JUNTO COM 9b **
+Foi feito em servidor privado dentro do LEP1
+Imagens: "ssrf cmd injection.png" e "ssrf cmd injection2.png"
+String usada no campo: "; curl 127.0.0.1:8081/secret.txt"
 
 e) Para clientes:
 	- Realizar logout
@@ -98,7 +104,5 @@ e) Para clientes:
 	- Reduzir o tempo de vida dos Cookies
 
 ToDo:
-- 9b
 - 12e
 - 13b
-- 13d
