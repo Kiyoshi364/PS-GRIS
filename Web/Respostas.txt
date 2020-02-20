@@ -83,10 +83,11 @@ sistema.
 
 e)
 
-13) a) Cross-Site Request Forgery: o atacante se aproveita da confiança do
-servidor para enviar ou realizar algo malicioso.
+13) a) Cross-Site Request Forgery: o atacante força a vítima a enviar um
+request para o mesmo ou outro servidor, e assim adquirir algum privilégio.
 
-b) 
+b) Feito no site: https://portswigger.net/web-security/csrf/lab-no-defenses
+Imagem: "csrf burp.png"
 
 c) Server-Site Request Forgery: o atacante faz o servidor abrir uma conexão
 para outro endereço, muitas vezes ganhando acesso privilegiado.
@@ -102,7 +103,3 @@ e) Para clientes:
 
    Para servidor:
 	- Reduzir o tempo de vida dos Cookies
-
-ToDo:
-- 12e
-- 13b
