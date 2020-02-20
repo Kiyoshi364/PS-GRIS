@@ -16,7 +16,7 @@ que pode ser ou não necessárias para a comunicação. O header pode ter
 informações sobre o servidor.
 
 4) São maneiras de enviar informações e comandos para um servidor. POST envia
-informações, como submisão de um formulário, pela requisição, enquanto o GET
+informações, como submissão de um formulário, pela requisição, enquanto o GET
 realiza a mesma tarefa, porém pela URL. Dessa forma, além de ser mais seguro
 (as informações não ficam salvas junto com as urls no histórico no navegador),
 o POST também permite enviar mais dados.
@@ -26,7 +26,7 @@ o servidor retorna um arquivo, geralmente ele manda a data de expiração do
 pultimo cache, assim podendo evitar uma transferência de dados desnecessária.
 Cache-control, Pragma, Expires, Validators.
 
-6) Cookie é um resgistro de sessão, serve para o servidor "se lembrar" do
+6) Cookie é um registro de sessão, serve para o servidor "se lembrar" do
 client em acessos recentes. Cookie Stealing.
 
 7) OWASP-Top-Ten é um documento que fala sobre os maiores riscos de segurança
@@ -103,3 +103,5 @@ e) Para clientes:
 
    Para servidor:
 	- Reduzir o tempo de vida dos Cookies
+	- Usar CSRF Token
+	- Confirmação de senha antes de qualquer requisição importante
