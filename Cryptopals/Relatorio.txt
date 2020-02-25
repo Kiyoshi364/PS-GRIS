@@ -1,0 +1,55 @@
+→ Set 1 Challenge 1:
+
+	O desafio é converter de hex para base64.
+O arquivo é base64.c, nesse caso basta usar as flags ‘e’ para codificar e ‘h’
+para entrada em hex.
+
+→ Set 1 Challenge 3:
+
+	O desafio é descobrir a chave para a cifra de XOR.
+O arquivo é singlexor.c, a entrada é passada pela linha de comando em hex
+(dessa vez não tem nenhuma flag). O programa filtra as “saídas ruins” (que tem
+caracteres não printáveis). Printa algumas possibilidades:
+
+0x47>\pptvqx?R\8l?svtz?~?opjq{?py?}~|pq
+0x4A>Q}}y{|u2_Q5a2~{yw2s2b}g|v2}t2psq}|
+0x4D>Vzz~|{r5XV2f5y|~p5t5ez`{q5zs5wtvz{
+0x4F>Txx|~yp7ZT0d7{~|r7v7gxbys7xq7uvtxy
+0x50>Kggcafo(EK/{(dacm(i(xg}fl(gn(jikgf
+0x51>Jffb`gn)DJ.z)e`bl)h)yf|gm)fo)khjfg
+0x53>Hdd`bel+FH,x+gb`n+j+{d~eo+dm+ijhde
+0x55>Nbbfdcj-@N*~-adfh-l-}bxci-bk-olnbc
+0x56>Maaeg`i.CM)}.bgek.o.~a{`j.ah.loma`
+0x58>Cooking MC's like a pound of bacon
+0x59>Bnnjhof!LB&r!mhjd!`!qntoe!ng!c`bno
+0x5A>Ammikle"OA%q"nkig"c"rmwlf"md"`caml
+0x5B>@llhjmd#N@$p#ojhf#b#slvmg#le#ab`lm
+0x5C>Gkkomjc$IG#w$hmoa$e$tkqj`$kb$fegkj
+0x5D>Fjjnlkb%HF"v%iln`%d%ujpka%jc%gdfjk
+0x5E>Eiimoha&KE!u&jomc&g&vishb&i`&dgeih
+0x5F>Dhhlni`'JD t'knlb'f'whric'ha'efdhi
+
+Claramente essa é a resposta certa. A chave é 0x58 (ou a letra ‘X’).
+
+
+→ Set 1 Challenge 4:
+
+	Usando o mesmo programa da anterior, mas agora usando o stdin, que foi
+redirecionado de um arquivo. Muitos “lixos” apareceram na saída, mas esse (a
+da linha 171) foi a mais interresante.
+
+0x1F>dE]
+^BK^
+^BO
+ZKX^S
+CY
+@_GZCDM
+0x35>Now that the party is jumping
+
+0x71>
++3d0,%0d0,!d4%60=d-7d.1)4-*#N
+171>7b5a4215415d544115415d5015455447414c155c46155f4058455c5b523f
+
+	Descobri a chave 0x35 (ou ‘5’), a mensagem “Now that the party is jumping
+” (Sim, o quebra linha é importante) e a mensagem cifrada
+7b5a4215415d544115415d5015455447414c155c46155f4058455c5b523f.
