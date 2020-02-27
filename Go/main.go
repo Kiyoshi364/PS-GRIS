@@ -19,26 +19,40 @@ type Target struct {
 }
 
 func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Scanning ports...")
+	fmt.Fprintf(w, `
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<form method="POST" enctype="application/json" action="/">
+<label for="IP">IP:</label><br>
+<input type="text" name="IP"><br>
+<label for="start">Starting port:</label><br>
+<input type="number" name="start"><br>
+<label for="end">Ending port:</label><br>
+<input type="number" name="end"><br><br>
+<input type="submit" value="Submit">
+</form>
+`)
+	//fmt.Fprintf(w, "Scanning ports...")
 	log.Printf("New request: %v", r)
+	log.Printf("Request body: %v", r.Body)
 
 	// Parse JSON
 	t := &Target{}
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(t)
 	if  err != nil {
-		//http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		//return
 	}
 
-	fmt.Fprintf(w, "\tTarget: %v", t)
+	log.Printf("\tTarget: %v", t) // DEBUG
 
 	/* Constantes para teste DEBUG
-	*/
 	t.host = "192.168.0.38"//"scanme.nmap.org"//"127.0.0.1"
 	t.start = 0010
 	t.end = 8090
-	/*
 	*/
 
 	// Channel para retornar os ports abertos
@@ -62,6 +76,7 @@ func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	for port := range openPort {
 		fmt.Fprintf(w, "\nOpen port detected: %d", port)
 	}
+	fmt.Fprintf(w, "</body>")
 	log.Printf("Ended Request")
 }
 
