@@ -1,0 +1,14 @@
+Pessoas: Vai guardar as informações basicas de cada pessoa.
+	pessoa_id: A chave primária de cada pessoa no banco de dados.
+	nome: Infomação básica.
+	data_de_nascimento: Infomação básica.
+	dre: Infomação básica.
+	curso: Infomação básica.
+
+Alunos: Vai selecionar quais das pessoas envolvidas são alunos/fazer tags
+(estão participando do processo).
+
+Palestrantes: Vai selecionar quais pessoas enviam tags.
+
+Tags: Guarda informações necessárias sobre as tags, como descrição (o que
+fazer) e data de entrega.
