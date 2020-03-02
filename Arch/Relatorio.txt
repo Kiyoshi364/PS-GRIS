@@ -1,0 +1,91 @@
+Primeiro tive que setar um pendrive para dar boot no pc.
+
+<Img: Rufus.png>
+
+Setei o teclado para brasileiro.
+
+"loadkeys br-abnt2"
+
+Usei "wifi-menu" para conectar com a internet, testei a conexão com ping.
+
+"fdisk /dev/sda
+g
+w" para alterar tabela de partição de DOS para GPT.
+
+Formatei as partições com:
+"mkfs.fat -F32 /dev/sda1"
+"mkfs.ext4 /dev/sda2"
+"mkfs.ext4 /dev/sda3"
+"mkswap /dev/sda4"
+
+e montei com:
+"swapon /dev/sda4"
+"mount /dev/sda2 /mnt"
+"mkdir /mnt/home"
+"mount /dev/sda3 /mnt/home"
+
+Instalei os pacotes basicos com:
+"pacstrap /mnt base linux linux-firmware"
+
+Usei os comandos que o tutorial falou para usar:
+
+"genfstab -U /mnt >> /mnt/etc/fstab"		- Gera fstab
+"arch-chroot /mnt"							- Troca para root no novo sistema
+"ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime"	- Seta time
+zone
+"hwclock --systohc"							- gera arquivo /etc/adjtime
+
+"pacman -S vim"								- instala o Vim (não está no
+tutorial, mas eu precisava editar arquivos)
+
+Tirei o comentário do 'pt_BR.UTF-8'
+
+"locale-gen"								- gera locales (não entendi muito
+bem)
+"echo LANG=pt_BR.UTF-8 >> /etc/locale.config"
+"echo KEYMAP=br-abnt2 >> /etc/vconsole.config"
+"echo shikiyo >> /etc/hostname"				- (Eu mudei para 's')
+
+Escrevi em /etc/hosts:
+"127.0.0.1	localhost
+::1		localhost
+127.0.1.1	shikiyo.localdomain	shikiyo"
+
+Alterei a senha com "passwd" e criei um user "useradd -m -g users -G wheel
+shikiyo".
+
+Aí eu dei "exit" "reboot", e deu ruim.
+
+... Esqueci de baixar o boot loader.
+
+Vamos instalar o GRUB
+"pacman -S grub"
+"grub-install --target=i386-pc --recheck /dev/sda"
+"grub-mkconfig -o /boot/grub/grub.cfg"
+
+"reboot"
+
+Funcionou!!! Mas agora não tem internet...
+
+Bota pendrive, tenta de novo.
+
+"pacman -S networkmanager network-manager-applet wpa_supplicant wireless_tools
+dialog"
+
+"reboot"
+
+Usei "systemclt status NetworkManager" e "systemclt start NetworkManager" para
+'ligar a internet' e "systemctl enable NetworkManager" para já ligar no boot.
+
+Instalar xorg e driver de vídeo
+"pacman -S xorg-server"
+"pacman -S xf86-video-intel libgl mesa"
+
+"pacman -S gnome"		- Não baixei todas as opcões, mas não lembro quais eu
+escolhi
+"systemctl enable gdm"
+"reboot"
+
+Agora tem interface gráfica bonitinha!
+
+END

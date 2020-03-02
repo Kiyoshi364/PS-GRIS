@@ -1,0 +1,11 @@
+1) Analisar o binário tag que vou mandar logo depois dessa mensagem. Ele é um
+arquivo ELF compilado pra 64 bits. Se precisarem, posso compilar pra 32 bits e
+distribuir também.
+O objetivo dessa análise vai ser entender o que o programa tá fazendo e tentar
+descrever o passo a passo dele em um writeup, incluindo prints e informações
+relevantes que forem encontrando durante a análise. Detalhe os passos que
+achar importante.
+
+2) Escrever um programa em qualquer linguagem que reverta o que foi feito ao
+rodar o executável tag. Para o código, basta uma breve explicação do que foi
+pensado no próprio readme.

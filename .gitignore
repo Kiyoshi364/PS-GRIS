@@ -56,4 +56,7 @@ dkms.conf
 *.un~
 *.swp
 *.txt~
+*.go~
+*~
+
 *.odt
