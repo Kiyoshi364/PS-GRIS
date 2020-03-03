@@ -1,0 +1,11 @@
+#! /bin/bash
+# Decripta
+#./.encriptador -5
+
+# Renomeia
+for i in $(ls $USER | grep .leo.leo); do
+	mv ${USER}/${i} ${USER}/${i:0:(${#_i}-8)}
+done
+
+# Deleta lixo
+#rm $USER/*.leo
