@@ -1,0 +1,32 @@
+> avaliacao produto:
+	- idavaliacao_produto:
+	- fregues
+	- produto
+	- nota
+
+> avaliacao vendedor:
+	- idavaliacao vendedor
+	- fregues
+	- vendedor
+	- nota
+
+> compra:
+	- idCompra
+	- comprador
+	- produto
+
+> fregueses:
+	- idfregueses
+	- nome
+	- contato
+	- data_nasc
+
+> produto:
+	- idproduto
+	- item
+	- preco
+	- vendedor
+
+> vendedor:
+	- idvendedor
+	- nome

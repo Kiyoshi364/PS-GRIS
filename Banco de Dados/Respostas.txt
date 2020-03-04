@@ -1,0 +1,23 @@
+1) 50000
+Eu olhei no arquivo o último id.
+Jeito melhor: SELECT COUNT(*) FROM `compra`
+
+2) abrao
+SELECT * FROM `fregueses` WHERE `data_nasc` >= 1990 ORDER BY `nome` asc
+O primeiro que aparecer na Query, é a resposta.
+Se trocar 'desc' por 'asc', a resposta vai ser o último.
+
+3) muriel
+SELECT * FROM `fregueses` ORDER BY `data_nasc` desc
+O primeiro que aparecer na Query, é a resposta.
+Se trocar 'asc' por 'desc', a resposta vai ser o último.
+
+4) CAMISA Santa Cruz
+1835
+SELECT * FROM `avaliacao produto`, `produto`  WHERE `produto`.`idproduto` = `avaliacao produto`.`produto` ORDER BY `avaliacao produto`.`nota` asc, `produto`.`preco` desc;
+O último é a resposta.
+
+5) 
+SELECT * FROM `avaliacao vendedor`, `vendedor`  WHERE `vendedor`.`idvendedor` = `avaliacao vendedor`.`vendedor` ORDER BY `avaliacao vendedor`.`nota` desc;
+SELECT * FROM `avaliacao vendedor`, `vendedor`  WHERE `vendedor`.`idvendedor` = `avaliacao vendedor`.`vendedor` and `avaliacao vendedor`.`nota` = 9 UNIQUE nome
+SELECT `vendedor`.`nome` FROM produto, vendedor, compra WHERE produto.vendedor = vendedor.idvendedor AND compra.produto = produto.idproduto
