@@ -1,3 +1,7 @@
+O hacker ético é o profissional que tem como função testar sistemas de
+segurança e garantir que caso possua falhas elas sejam reportadas, simulando
+um hacker malicioso. Também conhecido como pentester, o hacker ético é
+regido por um código de ética
 
 
 External links:
