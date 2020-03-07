@@ -1,0 +1,29 @@
+Para rodar compile com gcc:
+gcc keylogger.c -o <file>
+sudo ./<file> <NUM>
+
+Onde <file> é o nome do seu executável e
+<NUM> é o numero do evento do teclado.
+
+Se não souber tente os números de 0 a 9.
+Se não for nenhum deles, não vai funcionar.
+
+O sudo é necessário para a leitura de um arquivo.
+
+Segurar <CAPS> pode fazer parar de funcionar.
+<CAPS> quando volta para normal pode sair como <ESC>
+
+Exemplo de saída:
+time: <TIMESTAMP>
+key: <KEYCODE> <MODE>: <KEY>
+
+<TIMESTAMP>	:	Data e hora
+<KEYCODE>	:	Código da tecla
+<MODE>		:	^ = Key Release
+				v = Key Down
+				h = Key Hold
+<KEY>		:	Tecla no teclado br-abnt-2
+
+<CAPS> possui um comportamento inesperado:
+	* As vezes, para de funcionar
+	* As vezes, força todas as teclas para 0 ^: dummy
