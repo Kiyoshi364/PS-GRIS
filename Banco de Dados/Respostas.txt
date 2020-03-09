@@ -37,3 +37,6 @@ Com o comando acima achamos quem vendeu mais:
  - alexander	909		87
  - iolanda		153		87
 
+Como não foi possível encontrar o melhor simultâneamente nos dois casos, achei
+válido listar os vendedores melhores avaliados e os que venderam mais
+(empatados).
