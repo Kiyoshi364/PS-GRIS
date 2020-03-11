@@ -18,6 +18,25 @@ SELECT * FROM `avaliacao produto`, `produto`  WHERE `produto`.`idproduto` = `ava
 O último é a resposta.
 
 5) 
-SELECT * FROM `avaliacao vendedor`, `vendedor`  WHERE `vendedor`.`idvendedor` = `avaliacao vendedor`.`vendedor` ORDER BY `avaliacao vendedor`.`nota` desc;
-SELECT * FROM `avaliacao vendedor`, `vendedor`  WHERE `vendedor`.`idvendedor` = `avaliacao vendedor`.`vendedor` and `avaliacao vendedor`.`nota` = 9 UNIQUE nome
-SELECT `vendedor`.`nome` FROM produto, vendedor, compra WHERE produto.vendedor = vendedor.idvendedor AND compra.produto = produto.idproduto
+
+SELECT vendedor.nome, vendedor.idvendedor,  AVG(`avaliacao vendedor`.nota) as num_avg FROM `avaliacao vendedor`, vendedor WHERE `avaliacao vendedor`.vendedor = vendedor.idvendedor GROUP BY vendedor.idvendedor ORDER BY  num_avg asc;
+Com o comando acima achamos os vendedores melhores avaliados:
+	NOME		ID		AVG
+ - juelisson	126		6.795918367346939
+ - adelberto	439		6.65
+ - ilza			399		6.612244897959184
+ - stephanie	673		6.6 
+ - valdilane	982		6.511627906976744 
+
+SELECT vendedor.nome, vendedor.idvendedor, COUNT(*) as num FROM `compra`, vendedor, produto WHERE compra.produto = produto.idproduto AND `produto`.vendedor = vendedor.idvendedor GROUP BY vendedor.idvendedor ORDER BY num asc;
+Com o comando acima achamos quem vendeu mais:
+	NOME		ID		NUM_VENDAS
+ - lindina		526		87
+ - greiciele	868		87
+ - expedito		348		87
+ - alexander	909		87
+ - iolanda		153		87
+
+Como não foi possível encontrar o melhor simultâneamente nos dois casos, achei
+válido listar os vendedores melhores avaliados e os que venderam mais
+(empatados).

@@ -1,4 +1,20 @@
+O hacker ético é o profissional que tem como função testar sistemas de
+segurança e garantir que caso possua falhas elas sejam reportadas, ou sejam
+"difícil de mais" para alguém invadir. Também conhecido como pentester, o
+hacker ético é regido por um código de ética e geralmente age como hacker
+malicioso: tenta invadir algum sistema; porém diferente dele, possui limites
+de até onde pode invadir e o que pode fazer. Além disso, no final de cada
+invasão o hacker ético deve escrever um relatório abordando o que fez e quais
+vulnerabilidades encontrou.
 
+O hackitivismo é um conjunto de ideias e pensamentos que sustenta a prática do
+hacking afim da busca por um mundo no qual a informação seja liberta, aberta
+para todos. Geralmente, ideais políticos se misturam ao conjunto, e comumente,
+suas ações são atreladas à atos criminosos, como roubo e exposição de
+informações privadas, de indivíduos ou empresas, recebendo fama de
+cybercriminosos pela sociedade, contudo nem sempre isso é verdade. Existem
+extensões sociais, hacklabs, são espaços abertos para a comunidade onde se
+pode apender sobre novas tecnologias.
 
 External links:
 https://www.eccouncil.org/code-of-ethics/
@@ -7,6 +23,5 @@ https://canaltech.com.br/internet/protestos-na-internet-conheca-7-casos-recentes
 Fontes:
 https://cio.com.br/o-que-e-hacking-etico/
 https://computerworld.com.br/2019/03/04/o-que-e-hacking-etico-como-ser-pago-para-invadir-computadores/
-https://aldeia.cc/blog/tecnologia/hackerativismo-cidadania-papel-politico/
 https://pt.wikipedia.org/wiki/Hacktivismo
 https://conceitos.com/hacktivismo/
