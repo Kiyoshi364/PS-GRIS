@@ -1,0 +1,133 @@
+1) Modelo OSI:
+7 - Aplicação:		Escolhe aplicações e protocolos para serem usados.
+6 - Apresentação:	Comprimi/Criptografa os dados.
+5 - Sessão:			Estabelece uma forma de transmitir dados entre duas
+aplicações, corrigue erros.
+4 - Transporte:		Organiza pacotes (junta na ordem certa), pode se orientar
+de acordo com o protocolo.
+3 - Rede:			Endereça pacotes, converte IP em MAC, decide se o pacote
+deve ser roteado ou não.
+2 - Enlace:			Conecta 1 e 3, usa MAC, estabelece protocolo utilizado,
+pode corrigir erros.
+1 - Física:			Transferência de dados brutos, converte sinais em bits e
+vise-versa e os envia, não faz correção de erros.
+
+2) São a mesma coisa. Um domínio de broadcast é um segmento lógica de uma rede
+de computadores em que um aparelho conectado à rede é capaz de se comunicar
+com outro aparelho conectado à rede sem a necessidade de utilizar um
+dispositivo de roteamento.
+
+3)
+Domínios de Rede/Broadcast:
+	A) PC1, Switch S1, PC2, Roteador R1
+	B) PC3, Roteador R1
+	C) PC4, HUB H1, PC5, Roteador R2
+
+4)
+A manda mensagem para o R1
+					(MAC_ORIG: A,	IP_ORIG: A,	MAC_DEST: R1,	IP_DEST: B)
+R1 manda mensagem para R2
+					(MAC_ORIG: R1,	IP_ORIG: A,	MAC_DEST: R2,	IP_DEST: B)
+R2 manda mensagem para B
+					(MAC_ORIG: R2,	IP_ORIG: A,	MAC_DEST: B,	IP_DEST: B)
+B manda ACK para R2	
+					(MAC_ORIG: B,	IP_ORIG: B,	MAC_DEST: R2,	IP_DEST: A)
+R2 manda ACK para R1
+					(MAC_ORIG: A,	IP_ORIG: B,	MAC_DEST: R1,	IP_DEST: A)
+R1 manda ACK para A
+					(MAC_ORIG: R1,	IP_ORIG: B,	MAC_DEST: A,	IP_DEST: A)
+
+5)
+A manda mensagem para o R1
+				(MAC_ORIG: A,	IP_ORIG: A,		MAC_DEST: R1,	IP_DEST: B)
+R1 manda mensagem para R2
+				(MAC_ORIG: R1,	IP_ORIG: R1,	MAC_DEST: R2,	IP_DEST: B)
+R2 manda mensagem para B
+				(MAC_ORIG: R2,	IP_ORIG: R1,	MAC_DEST: B,	IP_DEST: B)
+B manda ACK para R2	
+				(MAC_ORIG: B,	IP_ORIG: B,		MAC_DEST: R2,	IP_DEST: R1)
+R2 manda ACK para R1
+				(MAC_ORIG: A,	IP_ORIG: B,		MAC_DEST: R1,	IP_DEST: R1)
+R1 manda ACK para A
+				(MAC_ORIG: R1,	IP_ORIG: B,		MAC_DEST: A,	IP_DEST: A)
+
+6) Segundo RFC793: A manda um Syn para B a fim de começar uma conexão, então B
+manda um ACK (confirmando o Syn) e um Syn, e assim A responde com um ACK para
+o Syn e a conexão é estabelecida.
+
+7) MDI e MDI-X são formas de ordenar as entradas dos fios (que estão dentro
+dos cabos), a diferença entre elas é que TX + e - trocam de lugar com RX + e
+-, e vice-versa.
+
+8) TODO
+
+9)
+	1) Broadcast
+		Rede:		177.32.168.216
+		Host:		177.32.168.217 - 177.32.168.212
+		Broadcast:	177.32.168.223
+
+Cálculos:
+	223 = 0b 1101 1111
+	248 = 0b 1111 1000
+	1101 1000 = 216
+
+	2) Host
+		Rede:		204.20.128.0
+		Host:		204.20.128.1 - 204.10.191.254 
+		Broadcast:	204.10.191.255
+
+Cálculos:
+	18 = 8+8+2
+	143 = 0b 1000 1111
+	1000 0000 = 128
+	1011 1111 = 191
+
+	3) Host
+		Rede:		36.72.0.0
+		Host:		36.72.0.1 - 36.73.255.254
+		Broadcast:	36.73.255.255
+
+	4) Rede
+		Rede:		7.26.0.64
+		Host:		7.26.0.65 - 7.26.0.126
+		Broadcast:	7.26.0.127
+
+Cálculos:
+	26 = 8+8+8+2
+	64 = 0b 0100 0000
+
+	5) Broadcast
+		Rede:		200.201.173.184
+		Host:		200.201.173.183 - 200.201.173.186
+		Broadcast:	200.201.173.187
+
+Cálculos:
+	252 = 0b 1111 1100
+	187 = 0b 1011 1011
+	1011 1000 = 184
+
+10)
+	1) Mesma rede
+		  Igual	|
+	224 = 0b 111|0 0000
+	154 = 0b 100|1 1010
+	158 = 0b 100|1 1110
+
+	2) Mesma rede
+			Igual  |
+	248 = 0b 1111 1|000
+	142 = 0b 1000 1|110
+	137 = 0b 1000 1|001
+
+	3) Mesma Rede
+		Igual |
+	10 = 8+2 -|------
+	---> 0b 11|00 0000
+	45 = 0b 00|10 1010
+	12 = 0b 00|00 1100
+
+Obs: Os números antes o byte onde a máscara corta são iguais, por isso não é
+necessário verificar.
+
+11)
