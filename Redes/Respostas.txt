@@ -73,7 +73,7 @@ dos cabos), a diferença entre elas é que TX + e - trocam de lugar com RX + e
 A	<-> S1:	Straight
 S1	<-> R1:	Straight
 R1	<-> R2:	Cross
-R2	<->  B:	Straight
+R2	<->  B:	Cross
 
 9)
 	1) Broadcast
