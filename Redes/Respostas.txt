@@ -12,16 +12,26 @@ pode corrigir erros.
 1 - Física:			Transferência de dados brutos, converte sinais em bits e
 vise-versa e os envia, não faz correção de erros.
 
-2) São a mesma coisa. Um domínio de broadcast é um segmento lógica de uma rede
-de computadores em que um aparelho conectado à rede é capaz de se comunicar
-com outro aparelho conectado à rede sem a necessidade de utilizar um
-dispositivo de roteamento.
+2) Um domínio de broadcast é um segmento lógica de uma rede de computadores em
+que um aparelho conectado à rede é capaz de se comunicar com outro aparelho
+conectado à rede sem a necessidade de utilizar um dispositivo de roteamento.
+
+Um domínio de colisão é uma área lógica onde os pacotes podem colidir uns
+contra os outros.
 
 3)
 Domínios de Rede/Broadcast:
 	A) PC1, Switch S1, PC2, Roteador R1
 	B) PC3, Roteador R1
 	C) PC4, HUB H1, PC5, Roteador R2
+
+Domínios de Colisão:
+	A) PC1, Switch S1
+	B) PC2, Switch S1
+	C) Switch S1, Roteador R1
+	D) Roteador R1, PC3
+	E) Roteador R1, Roteador R2
+	F) PC4, HUB H1, PC5, Roteador R2
 
 4)
 A manda mensagem para o R1
@@ -59,7 +69,11 @@ o Syn e a conexão é estabelecida.
 dos cabos), a diferença entre elas é que TX + e - trocam de lugar com RX + e
 -, e vice-versa.
 
-8) TODO
+8)
+A	<-> S1:	Straight
+S1	<-> R1:	Straight
+R1	<-> R2:	Cross
+R2	<->  B:	Straight
 
 9)
 	1) Broadcast
@@ -131,3 +145,142 @@ Obs: Os números antes o byte onde a máscara corta são iguais, por isso não �
 necessário verificar.
 
 11)
+	25	-> /27
+	60	-> /26
+	120	-> /25
+	500	-> /23
+
+Total:
+	* 1	/27
+	* 1 /26
+	* 2 /25
+	* 2 /23
+
+Mapa:
+	/8 -> /21 -> /22 -> /23						 =>	187.0.0.0	- 187.0.1.255
+			|	   L--> /23						 =>	187.0.2.0	- 187.0.3.255
+			L--> /22 -> /23 -> /24 -> /25		 =>	187.0.4.0	- 187.0.4.127
+						  |		 L--> /25		 =>	187.0.4.128	- 187.0.4.255
+						  L--> /25 -> /26		 =>	187.0.5.0	- 187.0.5.63
+					 			 L--> /26 -> /27 =>	187.0.5.64	- 187.0.5.95
+Ips não usados:
+	187.0.5.96	- 187.0.5.127	/27
+	187.0.5.128	- 187.0.5.255	/25
+	187.0.6.0	- 187.0.7.255	/23
+	187.0.8.0	- 187.0.15.255	/21
+	/* Ainda existem um /9, /10, /11, /12 ... /20, mas não sou um pc e não
+gosto de fazer conta */
+
+
+	Cheat Table:
+	2^ 2	-2 =	2		-> /30
+	2^ 3	-2 =	6		-> /29
+	2^ 4	-2 =	14		-> /28
+	2^ 5	-2 =	30		-> /27
+	2^ 6	-2 =	62		-> /26
+	2^ 7	-2 =	126		-> /25
+	2^ 8	-2 =	254		-> /24
+	2^ 9	-2 =	510		-> /23
+	2^ 10	-2 =	1022	-> /22
+	2^ 11	-2 =	2046	-> /21
+
+12) RIP e OSPF são Interior Gateway Protol (IGP) e BGP é de Exterior Gateway
+Protocol (EGP).
+
+13)
+	64KB = 64 * 1024 * 8 = 524 288 bits
+	32KB = 32 * 1024 * 8 = 262 144 bits
+	15ms = 0.015s
+
+	524 288 / 0.015 = 34 952 533.333 bits/s
+	262 144 / 0.015 = 17 476 266.667 bits/s
+
+Se todos mandam pacotes ao mesmo tempo:
+
+	34 952 533.333 * 3 = 104 857 600 bits/s
+	17 476 266.667 * 2 = 34 952 533.333 bits/s
+
+Total = 139 810 133.333 bits/s = 17 066.666 MB/s
+
+14)
+	Sequence Number: É o número do 1o byte da mensagem que está sendo enviado
+nesse pacote.
+	Acknowledment:	É o número do próximo byte que espera receber, confirmando
+o recebimento de todos os anteriores.
+	Window Size:	O tamanho da janela, quantidade de pacotes que são
+enviados por vez.
+	Flags:			
+		- URG:	A mensagem é urgente, então deve ser enviada para a aplicação
+imediatamente.
+		- ACK:	Marca que o campo ACK contém informação válida.
+		- PSH:	Recebe prioridade (menor que urgente) para o tratamento da
+mensagem.
+		- RST:	Encerra abruptamente a conexão nos dois lados.
+		- SYN:	Tenta iniciar uma conexão.
+		- FIN:	Encerra a conexão normalmente por um lado.
+
+15) A mensagem é dividida em vários pacotes e o número de sequenciamento de
+cada pacote é o mesmo do 1o byte enviado nesse pacote.
+
+Considerando Window Size como 1:
+
+Alice manda um pacote de sequencia `X` e tamanho `N` para Bob.
+Bob recebe e manda um pacote com ACK `X+N`
+Alice manda o próximo pacote de sequencia `X+N` e tamanho `M`
+Bob recebe e manda um pacote com ACK `X+N+M`
+
+16) Retransmite o pacote quando o timeout expira sem receber um ACK
+correspondente.
+
+17) Retrasnmite o pacote quando recebe um ACK duplicado 3 vezes (total de 4
+ACKs iguais)
+
+18)
+	Slow Start: Funciona quando cwnd < threshold. cwnd duplica a cada ACK
+recebido.
+	Congestion Avoidance: Funciona quando cwnd >= threshold. cwnd aumenta em 1
+a cada ACK recebido.
+
+19) O comportamento cerrilhado é simples de ser implementado e busca maximizar
+a quantidade de dados transmitidos, evitando os congestionamentos.
+
+20)
+A -> B
+A envia 1 - 8
+B recebe 1 - 8
+B envia ACK 2 - 9
+*ACK 2 e 3 se perdem*
+A recebe ACK 4 - 9
+A manda 9 - 17 (note que a quantidade aumentou em 1 ou eu errei conta)
+B recebe 9 - 17
+...
+
+
+21) Um Sistema Autônomo é um conjunto de redes, ou uma única rede, que além de
+estar sob uma gestão comum tem características e políticas de roteamento
+comuns.
+
+22)
+	Requisição:
+	| MAC_DEST	| MAC_ORIG	| Controle	| Cabeçalho	| IP_DEST	| MAC_DEST	|
+	| 111111111	| MAC A		| controle	|			|	IP B	| 	  ?		|
+IP_ORIG	| MAC_ORIG	| CRC
+IP A	| MAC A		| CRC
+
+	Resposta:
+	| MAC_DEST	| MAC_ORIG	| Controle	| Cabeçalho	| IP_DEST	| MAC_DEST	|
+	| MAC A		| MAC B		| controle	|			|	IP B	| 	  ?		|
+IP_ORIG	| MAC_ORIG	| CRC
+IP A	| MAC A		| CRC
+
+23) 'Carrier Sense Multiple Access with Collision Detection' é um algoritmo
+para prevenir, detectar e tratar colisões em redes Ethrenet.
+
+24) Encapsulamento é quando uma coisa A, engloba uma coisa B e pode ou não
+adicionar outras coisas (geralmente adiciona). Em redes, acontece quando uma
+informação passa de uma camada para outra: a informação da camada mais alta
+passa a ser um campo para a camada mais baixa.
+
+25) Protocolo são vários conjuntos de ações que são estabelecidas para atingir
+um objetivo, em outras palavras são comportamentos acordados necessários para
+uma troca de informações.
