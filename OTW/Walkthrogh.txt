@@ -175,4 +175,91 @@ Obrigado wiki, ter que digitar o comando da cabeça teria demorado um tempo.
 
 *12*
 
+`ls -a
+mkdir /tmp/shikiyo
+xxd -r data.txt >> /tmp/shikiyo/file1
+`
 
+Vamos ver como descompacta.
+
+`file /tmp/shikiyo/file1
+`
+
+É um gzip.
+
+`cd /tmp/shikiyo/
+gzip -d file1 >> data2.bin
+`
+Deu ruim. Demorou alguns comandos para perceber o que eu tinha que fazer.
+
+`ls
+file data2.bin
+rm data2.bin
+mv file1 data1.gz
+gzip -d data1.gz >> data2.bin
+file data2.bin
+ls
+ls -a
+file data1
+rm data2.bin
+`
+
+No final das contas eu só precisava de `gzip -d data1.gz`.
+Agora pelo bzip2
+
+`bzip2 -d data1
+file data1.out
+`
+
+Outro gzip.
+
+` mv data1.out data.gz
+gzip -d data.gz
+file data
+`
+
+Agora é um tar.
+
+`tar -xf data
+ls
+file data5.bin
+`
+
+Outro tar.
+
+`tar -xf data5.bin
+ls
+file data6.bin
+bzip2 -d data6.bin
+file data6.bin.out
+tar -xf data6.bin.out
+ls
+`
+
+Então eu tive que fazer uma pausa (mas já estava tudo salvo na tmp, então tudo
+ok). Quando voltei:
+
+`cd /tmp/shikiyo/
+ls -a
+file data8.bin
+mv data8.bin data.gz
+gzip -d data.gz
+y
+ls file data
+cat data
+`
+
+Já temos a chave, mas é bom limpar o espaço que foi usado.
+
+`cd ..
+rm -r shikiyo
+cd shikiyo
+`
+
+(O último foi só para ter certeza que foi apagado.)
+
+>> 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+
+Tentei fazer alguma coisa, mas não deu muito certo. Vou pesquisar mais e se
+surgir alguma ideia vou mudar esse texto. De qualquer forma os prints vão
+ficar.
