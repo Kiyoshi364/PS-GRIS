@@ -1,0 +1,178 @@
+Começamos com `ssh -p 2220 bandit0@bandit.labs.overthewire.org`
+Senha: bandit0
+
+*0*
+
+`ls -a
+cat readme
+`
+>> boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+
+*1*
+
+`ls -a
+cd -
+cd '-'
+cd './-'
+ls -la
+file ./-
+cat ./-
+`
+
+>> CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+
+*2*
+
+`ls -al
+cat s<TAB>
+`
+
+>> UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+
+*3*
+
+`ls -la
+cd i<TAB>
+ls -a
+cat .h<TAB>
+`
+
+>> pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+
+*4*
+
+`ls -a
+cd i<TAB>
+ls -a
+file ./-file00
+file ./-file01
+file ./-file02
+file ./-file03
+file ./-file03
+file ./-file04
+file ./-file04
+file ./-file05
+file ./-file06
+file ./-file07
+cat ./-file07
+`
+
+>> koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+
+*5*
+
+`ls -a
+cd i<TAB>
+ls -a
+`
+
+Ah, 5 mil pastas....
+
+`ls -Rla | grep 1033
+`
+
+O nome é '.file2'
+
+`find .file2
+find -k -f .file2
+`
+(Li o manual do file cof cof)
+
+`find . | grep .file2
+`
+
+Por que apareceu isso tudo? Ah, em regex '.' é quase qualquer coisa.
+
+`find . | grep '/[.]file2$'
+`
+
+Claro, todas as pastas tem um '.file2'...
+(Voltando para o manual)
+
+`find . -n 1033
+` (Erros de CTRL-C CTRL-V)
+`find . -size 1033
+` (Por algum motivo não achou nada)
+`find . -size -1040c
+find . -size -1040c | grep '/.file2$'
+find . -size -1040c | grep '/[.]file2$'
+`
+
+Agora testamos qual tem o ramanho que eu quero.
+
+`ls -l maybehere15/.file2
+ls -l maybehere10/.file2
+ls -l maybehere08/.file2
+ls -l maybehere07/.file2
+cat maybehere07/.file2
+`
+
+>> DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+
+*6*
+
+`ls -Rla / | grep 33
+`
+
+Printou muita coisa e sem querer eu achei o arquivo (está no bandit6-.png) mas
+vou considerar que não achei. Obs: me recuso a tirar print da saída inteira.
+
+`ls -Rla / | grep "bandit7 bandit6"
+find / | grep bandit7.password
+cat /var/lib/dpkg/info/bandit7.password
+`
+
+>> HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+
+*7*
+
+`ls -a
+cat data.txt | less
+/millionth
+`
+
+Quando eu olhei para a linha percebi que poderia ter economizado um print com
+'grep millionth' no lugar de less
+
+`q`
+
+>> cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+
+*8*
+
+`ls -a
+cata data.txt | sort | uniq -u
+`
+
+>> UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+
+*9*
+
+`ls -a
+strings data.txt | grep '='
+`
+
+>> truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+
+*10*
+
+`ls -a
+base64 -d data.txt
+`
+
+>> IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+
+*11*
+
+`ls -a
+cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+`
+
+Obrigado wiki, ter que digitar o comando da cabeça teria demorado um tempo.
+(https://en.wikipedia.org/wiki/ROT13)
+
+>> 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+
+*12*
+
+
